@@ -1,0 +1,13 @@
+<h1>Red River Tech Store</h1>
+
+<div class="products-grid">
+  <% @products.each do |product| %>
+    <div class="product-card">
+      <h3><%= link_to product.name, product_path(product) %></h3>
+      <p><%= product.category.name %></p>
+      <p><strong>$<%= product.price %></strong></p>
+      <p><%= truncate(product.description, length: 100) %></p>
+      <%= link_to "View Details", product_path(product), class: "btn" %>
+    </div>
+  <% end %>
+</div>
