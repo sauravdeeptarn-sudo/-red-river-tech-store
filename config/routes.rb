@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   root "products#index"
   resources :products, only: [:index, :show]
+  resources :orders, only: [:new, :create, :show]
 
   get    "/cart",              to: "cart#show",    as: :cart
   post   "/cart/add/:id",      to: "cart#add",     as: :add_to_cart

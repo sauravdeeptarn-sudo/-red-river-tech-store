@@ -1,0 +1,124 @@
+<h1 class="mb-4">Checkout</h1>
+
+<div class="row">
+  <div class="col-md-7">
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-dark text-white">
+        <h5 class="mb-0">Shipping Information</h5>
+      </div>
+      <div class="card-body">
+        <%= form_with url: orders_path, method: :post do |f| %>
+
+          <div class="mb-3">
+            <%= label_tag :address, "Address (optional)", class: "form-label" %>
+            <%= text_field_tag :address, current_customer.address, class: "form-control", placeholder: "123 Main St" %>
+          </div>
+
+          <div class="mb-3">
+            <%= label_tag :province_id, "Province *", class: "form-label" %>
+            <%= select_tag :province_id,
+                options_for_select([["-- Select Province --", ""]] + @provinces.map { |p| [p.name, p.id] }, current_customer.province_id),
+                class: "form-select", required: true, id: "province_select" %>
+          </div>
+
+          <hr>
+          <h5>Order Summary</h5>
+          <table class="table table-sm">
+            <thead class="table-dark">
+              <tr>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @cart_items.each do |item| %>
+                <tr>
+                  <td><%= item[:product].name %></td>
+                  <td><%= item[:quantity] %></td>
+                  <td>$<%= number_with_precision(item[:product].price, precision: 2) %></td>
+                  <td>$<%= number_with_precision(item[:subtotal], precision: 2) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+          <div class="card bg-light mt-3">
+            <div class="card-body">
+              <table class="table table-sm mb-0">
+                <tr>
+                  <td>Subtotal:</td>
+                  <td><strong>$<%= number_with_precision(@subtotal, precision: 2) %></strong></td>
+                </tr>
+                <tr id="gst_row" style="display:none">
+                  <td>GST (5%):</td>
+                  <td id="gst_amount">$0.00</td>
+                </tr>
+                <tr id="pst_row" style="display:none">
+                  <td id="pst_label">PST:</td>
+                  <td id="pst_amount">$0.00</td>
+                </tr>
+                <tr id="hst_row" style="display:none">
+                  <td id="hst_label">HST:</td>
+                  <td id="hst_amount">$0.00</td>
+                </tr>
+                <tr class="table-success">
+                  <td><strong>Total:</strong></td>
+                  <td><strong id="total_amount">$<%= number_with_precision(@subtotal, precision: 2) %></strong></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <%= f.submit "Place Order", class: "btn btn-success btn-lg w-100 mt-3" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var subtotal = <%= @subtotal %>;
+  var provinces = <%= raw @provinces.to_json(only: [:id, :name, :gst, :pst, :hst]) %>;
+
+  document.getElementById('province_select').addEventListener('change', function() {
+    var provinceId = parseInt(this.value);
+    var province = provinces.find(p => p.id === provinceId);
+
+    if (!province) return;
+
+    var gst = subtotal * province.gst;
+    var pst = subtotal * province.pst;
+    var hst = subtotal * province.hst;
+    var total = subtotal + gst + pst + hst;
+
+    // GST
+    if (gst > 0) {
+      document.getElementById('gst_row').style.display = '';
+      document.getElementById('gst_amount').innerText = '$' + gst.toFixed(2);
+    } else {
+      document.getElementById('gst_row').style.display = 'none';
+    }
+
+    // PST
+    if (pst > 0) {
+      document.getElementById('pst_row').style.display = '';
+      document.getElementById('pst_label').innerText = 'PST (' + (province.pst * 100).toFixed(1) + '%):';
+      document.getElementById('pst_amount').innerText = '$' + pst.toFixed(2);
+    } else {
+      document.getElementById('pst_row').style.display = 'none';
+    }
+
+    // HST
+    if (hst > 0) {
+      document.getElementById('hst_row').style.display = '';
+      document.getElementById('hst_label').innerText = 'HST (' + (province.hst * 100).toFixed(0) + '%):';
+      document.getElementById('hst_amount').innerText = '$' + hst.toFixed(2);
+    } else {
+      document.getElementById('hst_row').style.display = 'none';
+    }
+
+    document.getElementById('total_amount').innerText = '$' + total.toFixed(2);
+  });
+</script>

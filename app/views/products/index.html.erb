@@ -1,19 +1,52 @@
 <h1 class="mb-4">🖥️ Our Products</h1>
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
-  <% @products.each do |product| %>
-    <div class="col">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body">
-          <span class="badge bg-primary mb-2"><%= product.category.name %></span>
-          <h5 class="card-title"><%= product.name %></h5>
-          <p class="card-text text-muted"><%= truncate(product.description, length: 100) %></p>
+<%# Search Form - Feature 2.6 %>
+<div class="card mb-4 shadow-sm">
+  <div class="card-body">
+    <%= form_with url: root_path, method: :get, local: true do |f| %>
+      <div class="row g-3 align-items-end">
+        <div class="col-md-6">
+          <%= f.label :search, "Search Products", class: "form-label" %>
+          <%= f.text_field :search, value: params[:search], placeholder: "Search by name or description...", class: "form-control" %>
         </div>
-        <div class="card-footer d-flex justify-content-between align-items-center">
-          <span class="fs-5 fw-bold text-success">$<%= number_with_precision(product.price, precision: 2) %></span>
-          <%= link_to "View Details", product_path(product), class: "btn btn-primary btn-sm" %>
+        <div class="col-md-4">
+          <%= f.label :category_id, "Category", class: "form-label" %>
+          <%= f.select :category_id,
+              options_for_select([["All Categories", 0]] + @categories.map { |c| [c.name, c.id] }, params[:category_id].to_i),
+              {}, class: "form-select" %>
+        </div>
+        <div class="col-md-2">
+          <%= f.submit "🔍 Search", class: "btn btn-primary w-100" %>
         </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
+
+<%# Search Results Info %>
+<% if params[:search].present? %>
+  <p class="text-muted">Showing results for "<strong><%= params[:search] %></strong>" — <%= @products.count %> product(s) found</p>
+<% end %>
+
+<%# Products Grid %>
+<% if @products.empty? %>
+  <div class="alert alert-warning">No products found. <%= link_to "Clear search", root_path, class: "alert-link" %></div>
+<% else %>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% @products.each do |product| %>
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <span class="badge bg-primary mb-2"><%= product.category.name %></span>
+            <h5 class="card-title"><%= product.name %></h5>
+            <p class="card-text text-muted"><%= truncate(product.description, length: 100) %></p>
+          </div>
+          <div class="card-footer d-flex justify-content-between align-items-center">
+            <span class="fs-5 fw-bold text-success">$<%= number_with_precision(product.price, precision: 2) %></span>
+            <%= link_to "View Details", product_path(product), class: "btn btn-primary btn-sm" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
