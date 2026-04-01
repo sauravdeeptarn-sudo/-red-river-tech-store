@@ -4,10 +4,10 @@ class Category < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
   def self.ransackable_attributes(auth_object = nil)
-    ["name", "created_at", "updated_at"]
+    ["name", "created_at", "updated_at", "id"]
   end
 
   def self.ransackable_associations(auth_object = nil)
-    []
+    ["products"]
   end
 end
