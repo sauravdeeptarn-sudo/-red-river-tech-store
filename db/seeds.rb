@@ -1,9 +1,18 @@
 # Clear all data in correct order
+Page.destroy_all
 OrderItem.destroy_all
 Order.destroy_all
+Customer.destroy_all
 Product.destroy_all
 Category.destroy_all
 Province.destroy_all
+
+# Create Pages
+Page.create!([
+  { title: "About Us", content: "Red River Tech Store is a local technology retail business located in Winnipeg, Manitoba. We have been serving the Winnipeg tech community for over six years. Our store specializes in computer hardware, gaming accessories, and PC components. Our knowledgeable staff is always ready to help you find the perfect product for your needs." },
+  { title: "Contact Us", content: "We would love to hear from you! Visit us at our Winnipeg location or reach out through the following channels.\n\nPhone: (204) 555-0123\nEmail: info@redrivertech.com\nAddress: 123 Main Street, Winnipeg, Manitoba, R3C 1A1\n\nStore Hours:\nMonday - Friday: 9am - 6pm\nSaturday: 10am - 5pm\nSunday: Closed" }
+])
+puts "Created #{Page.count} pages!"
 
 # Create Provinces with tax rates
 Province.create!([
