@@ -36,6 +36,9 @@
                 <%= link_to "👤 #{current_customer.name}", "#", class: "nav-link" %>
               </li>
               <li class="nav-item">
+                <%= link_to "My Orders", orders_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
                 <%= link_to "Logout", destroy_customer_session_path, data: { turbo_method: :delete }, class: "nav-link" %>
               </li>
             <% else %>
@@ -52,12 +55,7 @@
     </nav>
 
     <div class="container mt-2">
-      <% flash.each do |type, message| %>
-        <div class="alert alert-<%= type == 'notice' ? 'success' : 'danger' %> alert-dismissible fade show">
-          <%= message %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-      <% end %>
+      <%= render 'shared/flash_messages' %>
     </div>
 
     <main class="container my-4">

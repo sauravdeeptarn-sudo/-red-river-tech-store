@@ -3,6 +3,7 @@ class Customer < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   belongs_to :province, optional: true
+  has_many :orders
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true

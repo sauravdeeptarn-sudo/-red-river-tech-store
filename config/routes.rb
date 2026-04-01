@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   root "products#index"
   resources :products, only: [:index, :show]
-  resources :orders, only: [:new, :create, :show]
+  resources :orders, only: [:new, :create, :show, :index]
   resources :pages, only: [:show]
 
   get "/about",   to: "pages#about",   as: :about

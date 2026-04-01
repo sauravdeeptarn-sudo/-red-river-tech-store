@@ -1,6 +1,10 @@
 class OrdersController < ApplicationController
   before_action :authenticate_customer!
 
+  def index
+    @orders = current_customer.orders.includes(:order_items).order(created_at: :desc)
+  end
+
   def new
     @cart = session[:cart] || {}
     if @cart.empty?
@@ -34,20 +38,17 @@ class OrdersController < ApplicationController
 
     province = Province.find(params[:province_id])
 
-    # Calculate subtotal
     subtotal = 0
     @cart.each do |product_id, quantity|
       product = Product.find_by(id: product_id)
       subtotal += product.price * quantity if product
     end
 
-    # Calculate taxes
     gst_amount = (subtotal * province.gst).round(2)
     pst_amount = (subtotal * province.pst).round(2)
     hst_amount = (subtotal * province.hst).round(2)
     total = subtotal + gst_amount + pst_amount + hst_amount
 
-    # Create order
     order = Order.new(
       customer: current_customer,
       total_price: total,
