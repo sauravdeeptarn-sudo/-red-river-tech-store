@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   def index
     @categories = Category.all
-    @products = Product.all.includes(:category)
+    @products = Product.all.includes(:category, image_attachment: :blob)
 
     if params[:search].present?
       @products = @products.where("name ILIKE ? OR description ILIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")

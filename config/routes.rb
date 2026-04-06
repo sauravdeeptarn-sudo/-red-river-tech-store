@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "customers/profile"
+  get "customers/update_profile"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
@@ -12,8 +14,10 @@ Rails.application.routes.draw do
   resources :orders, only: [:new, :create, :show, :index]
   resources :pages, only: [:show]
 
-  get "/about",   to: "pages#about",   as: :about
-  get "/contact", to: "pages#contact", as: :contact
+  get  "/about",          to: "pages#about",           as: :about
+  get  "/contact",        to: "pages#contact",         as: :contact
+  get  "/profile",        to: "customers#profile",     as: :profile
+  patch "/profile",       to: "customers#update_profile", as: :update_profile
 
   get    "/cart",              to: "cart#show",    as: :cart
   post   "/cart/add/:id",      to: "cart#add",     as: :add_to_cart
