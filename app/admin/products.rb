@@ -6,6 +6,11 @@ ActiveAdmin.register Product do
   index do
     selectable_column
     id_column
+    column :image do |product|
+      if product.image.attached?
+        image_tag product.image, height: 50
+      end
+    end
     column :name
     column :price
     column :stock_quantity
@@ -34,17 +39,11 @@ ActiveAdmin.register Product do
       row :category
       row :image do |product|
         if product.image.attached?
-          image_tag rails_blob_path(product.image, disposition: "inline"), height: 200
+          image_tag product.image, height: 200
         else
           "No image uploaded"
         end
       end
-    end
-  end
-
-  controller do
-    def permitted_params
-      params.require(:product).permit(:name, :description, :price, :stock_quantity, :category_id, :image)
     end
   end
 end
