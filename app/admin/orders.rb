@@ -1,6 +1,8 @@
 ActiveAdmin.register Order do
   config.filters = false
-  actions :index, :show
+  actions :index, :show, :edit, :update
+
+  permit_params :status
 
   index do
     selectable_column
@@ -31,9 +33,18 @@ ActiveAdmin.register Order do
     column "Grand Total" do |order|
       number_to_currency(order.total_price)
     end
-    column :status
+    column :status do |order|
+      status_tag order.status, class: order.status == "paid" ? "green" : order.status == "shipped" ? "blue" : "orange"
+    end
     column :created_at
     actions
+  end
+
+  form do |f|
+    f.inputs do
+      f.input :status, as: :select, collection: ["pending", "paid", "shipped"]
+    end
+    f.actions
   end
 
   show do
@@ -58,6 +69,7 @@ ActiveAdmin.register Order do
       row :total_price do |order|
         number_to_currency(order.total_price)
       end
+      row :stripe_payment_id
       row :created_at
     end
 
