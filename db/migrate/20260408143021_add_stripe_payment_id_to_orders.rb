@@ -1,0 +1,6 @@
+class AddStripePaymentIdToOrders < ActiveRecord::Migration[8.1]
+  def change
+    add_column :orders, :stripe_payment_id, :string
+    add_column :orders, :stripe_customer_id, :string
+  end
+end

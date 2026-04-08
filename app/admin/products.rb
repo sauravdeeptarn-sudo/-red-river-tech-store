@@ -1,5 +1,5 @@
 ActiveAdmin.register Product do
-  permit_params :name, :description, :price, :stock_quantity, :category_id, :image
+permit_params :name, :description, :price, :stock_quantity, :category_id, :image, :sale_price, :is_on_sale
 
   config.filters = false
 
@@ -18,13 +18,15 @@ ActiveAdmin.register Product do
     actions
   end
 
-  form html: { multipart: true } do |f|
+ form html: { multipart: true } do |f|
     f.inputs do
       f.input :name
       f.input :description
       f.input :price
       f.input :stock_quantity
       f.input :category
+      f.input :is_on_sale, label: "On Sale?"
+      f.input :sale_price, label: "Sale Price"
       f.input :image, as: :file, input_html: { accept: "image/*" }
     end
     f.actions
@@ -46,4 +48,12 @@ ActiveAdmin.register Product do
       end
     end
   end
+end
+ActiveAdmin.register Product do
+controller do
+  def update
+    resource.image.purge if params[:product][:image].present? && resource.image.attached?
+    super
+  end
+end
 end

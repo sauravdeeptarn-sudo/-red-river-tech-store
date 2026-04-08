@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_05_132250) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_08_150602) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -110,6 +110,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_132250) do
     t.integer "province_id"
     t.decimal "pst_amount"
     t.string "status"
+    t.string "stripe_customer_id"
+    t.string "stripe_payment_id"
     t.decimal "subtotal"
     t.decimal "total_price"
     t.datetime "updated_at", null: false
@@ -127,8 +129,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_132250) do
     t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.text "description"
+    t.boolean "is_on_sale"
     t.string "name"
     t.decimal "price"
+    t.decimal "sale_price"
     t.integer "stock_quantity"
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_products_on_category_id"

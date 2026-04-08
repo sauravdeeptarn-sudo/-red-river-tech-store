@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get "customers/profile"
-  get "customers/update_profile"
+  get "categories/index"
+  get "categories/show"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :products, only: [:index, :show]
   resources :orders, only: [:new, :create, :show, :index]
   resources :pages, only: [:show]
+  resources :payments, only: [:new, :create]
 
   get  "/about",          to: "pages#about",           as: :about
   get  "/contact",        to: "pages#contact",         as: :contact

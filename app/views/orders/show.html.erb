@@ -66,6 +66,9 @@
       </div>
     </div>
 
-    <%= link_to "Continue Shopping", root_path, class: "btn btn-primary mt-3" %>
+    <% if @order.status == "pending" %>
+  <%= link_to "💳 Pay Now", new_payment_path(order_id: @order.id), class: "btn btn-success btn-lg mt-3" %>
+<% end %>
+<%= link_to "Continue Shopping", root_path, class: "btn btn-primary mt-3 ms-2" %>
   </div>
 </div>
