@@ -1,22 +1,24 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: red_river_tech_store_development
   username: postgres
   password: Robyvirk@12
   host: 127.0.0.1
   port: 5432
 
-development:
-  <<: *default
-  database: red_river_tech_store_development
-
 test:
   <<: *default
   database: red_river_tech_store_test
+  username: postgres
+  password: Robyvirk@12
+  host: 127.0.0.1
+  port: 5432
 
 production:
   <<: *default
-  database: red_river_tech_store_production
-  username: red_river_tech_store
-  password: <%= ENV["RED_RIVER_TECH_STORE_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
