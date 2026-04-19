@@ -33,7 +33,7 @@
             </li>
             <% if customer_signed_in? %>
               <li class="nav-item">
-            <%= link_to "👤 #{current_customer.name}", profile_path, class: "nav-link" %>
+                <%= link_to "👤 #{current_customer.name}", profile_path, class: "nav-link" %>
               </li>
               <li class="nav-item">
                 <%= link_to "My Orders", orders_path, class: "nav-link" %>
@@ -53,19 +53,15 @@
         </div>
       </div>
     </nav>
-
     <div class="container mt-2">
       <%= render 'shared/flash_messages' %>
     </div>
-
     <main class="container my-4">
       <%= yield %>
     </main>
-
     <footer class="bg-dark text-white text-center py-3 mt-5">
       <p class="mb-0">&copy; 2026 Red River Tech Store — Winnipeg, Manitoba</p>
     </footer>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
