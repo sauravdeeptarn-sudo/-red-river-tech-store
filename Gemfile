@@ -69,7 +69,6 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "sprockets-rails", "~> 3.5"
 
 
 gem "stripe"

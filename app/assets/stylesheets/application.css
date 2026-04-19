@@ -1,10 +1,251 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+/* Red River Tech Store - Professional Theme */
+
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f0f2f5;
+  color: #1a1a2e;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  padding: 12px 0;
+}
+
+.navbar-brand {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #e94560 !important;
+  letter-spacing: -0.5px;
+}
+
+.nav-link {
+  font-weight: 500;
+  color: rgba(255,255,255,0.85) !important;
+  transition: color 0.2s;
+  padding: 8px 12px !important;
+}
+
+.nav-link:hover {
+  color: #e94560 !important;
+}
+
+/* ===== HERO SECTION ===== */
+.store-hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: white;
+  padding: 60px 0;
+  margin-bottom: 40px;
+  border-radius: 0 0 20px 20px;
+}
+
+/* ===== PRODUCT CARDS ===== */
+.card {
+  border: none !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08) !important;
+  transition: transform 0.3s, box-shadow 0.3s !important;
+  background: white;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.15) !important;
+}
+
+.card-img-top {
+  height: 220px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-footer {
+  background: white !important;
+  border-top: 1px solid #f0f0f0 !important;
+  padding: 1rem 1.25rem;
+}
+
+/* ===== BUTTONS ===== */
+.btn-primary {
+  background: #0f3460 !important;
+  border-color: #0f3460 !important;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 8px 20px;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  background: #e94560 !important;
+  border-color: #e94560 !important;
+  transform: translateY(-2px);
+}
+
+.btn-success {
+  background: #00b894 !important;
+  border-color: #00b894 !important;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.btn-success:hover {
+  background: #00a381 !important;
+  border-color: #00a381 !important;
+}
+
+.btn-outline-secondary {
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* ===== BADGES ===== */
+.badge {
+  border-radius: 6px;
+  font-weight: 600;
+  padding: 5px 10px;
+}
+
+.badge.bg-primary {
+  background: #0f3460 !important;
+}
+
+.badge.bg-danger {
+  background: #e94560 !important;
+}
+
+/* ===== PRICE ===== */
+.text-success {
+  color: #00b894 !important;
+  font-weight: 700;
+}
+
+/* ===== FILTER BUTTONS ===== */
+.btn-outline-danger {
+  border-color: #e94560;
+  color: #e94560;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.btn-outline-danger:hover, .btn-outline-danger.active {
+  background: #e94560 !important;
+  color: white !important;
+}
+
+.btn-outline-secondary {
+  border-radius: 20px;
+}
+
+.btn-outline-success {
+  border-radius: 20px;
+}
+
+.btn-outline-info {
+  border-radius: 20px;
+}
+
+/* ===== SEARCH FORM ===== */
+.form-control, .form-select {
+  border-radius: 10px;
+  border: 2px solid #e0e0e0;
+  padding: 10px 15px;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #0f3460;
+  box-shadow: 0 0 0 3px rgba(15,52,96,0.1);
+}
+
+/* ===== ALERTS / FLASH ===== */
+.alert {
+  border: none;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.alert-success {
+  background: #d4edda;
+  color: #155724;
+}
+
+.alert-danger {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+  margin-top: 60px;
+  padding: 30px 0 !important;
+}
+
+footer p {
+  color: rgba(255,255,255,0.7);
+  margin: 0;
+}
+
+/* ===== PAGE TITLES ===== */
+h1 {
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+/* ===== BREADCRUMB ===== */
+.breadcrumb {
+  background: transparent;
+  padding: 0;
+  margin-bottom: 15px;
+}
+
+.breadcrumb-item a {
+  color: #0f3460;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.breadcrumb-item.active {
+  color: #666;
+}
+
+/* ===== PRODUCT DETAIL ===== */
+.product-detail-card {
+  border-radius: 16px;
+  padding: 30px;
+  background: white;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+/* ===== CART TABLE ===== */
+.table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table thead {
+  background: #1a1a2e;
+  color: white;
+}
+
+/* ===== PAGINATION ===== */
+.pagination .page-link {
+  border-radius: 8px;
+  margin: 0 3px;
+  color: #0f3460;
+  border: none;
+  font-weight: 500;
+}
+
+.pagination .page-item.active .page-link {
+  background: #0f3460;
+  color: white;
+}
